@@ -1,0 +1,11 @@
+smart_data_browser:
+    path:     /data/browser/index
+    defaults: { _controller: SmartDataBrowserBundle:Default:index }
+
+smart_data_browser_get_grid_data:
+    path:     /data/browser/get/grid/data
+    defaults: { _controller: SmartDataBrowserBundle:Default:getGridData }
+
+smart_data_browser_get_grid_structure:
+    path:     /data/browser/get/grid/structure
+    defaults: { _controller: SmartDataBrowserBundle:Default:getGridStructure }

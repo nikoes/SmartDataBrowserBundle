@@ -1,0 +1,574 @@
+Smart\Data\BrowserBundle\Entity\UserData:
+    type: entity
+    table: USER_DATA
+    indexes:
+        idx_employeestartdate:
+            columns:
+                - EMPLOYEESTARTDATE
+        idx_firstname:
+            columns:
+                - FIRSTNAME
+        idx_middlename:
+            columns:
+                - MIDDLENAME
+        idx_lastname:
+            columns:
+                - LASTNAME
+        idx_countrycode:
+            columns:
+                - COUNTRYCODE
+        idx_country:
+            columns:
+                - COUNTRY
+        idx_company:
+            columns:
+                - COMPANY
+        idx_department:
+            columns:
+                - DEPARTMENT
+        idx_description:
+            columns:
+                - DESCRIPTION
+        idx_domain:
+            columns:
+                - DOMAIN
+        idx_employeeid:
+            columns:
+                - EMPLOYEEID
+        idx_employeetype:
+            columns:
+                - EMPLOYEETYPE
+        idx_firstnamecyr:
+            columns:
+                - FIRSTNAMECYR
+        idx_middlenamecyr:
+            columns:
+                - MIDDLENAMECYR
+        idx_lastnamecyr:
+            columns:
+                - LASTNAMECYR
+        idx_hierarchylevel0:
+            columns:
+                - HIERARCHYLEVEL0
+        idx_hierarchylevel1:
+            columns:
+                - HIERARCHYLEVEL1
+        idx_hierarchylevel2:
+            columns:
+                - HIERARCHYLEVEL2
+        idx_hierarchylevel3:
+            columns:
+                - HIERARCHYLEVEL3
+        idx_hierarchylevel4:
+            columns:
+                - HIERARCHYLEVEL4
+        idx_hierarchylevel5:
+            columns:
+                - HIERARCHYLEVEL5
+        idx_hierarchylevel6:
+            columns:
+                - HIERARCHYLEVEL6
+        idx_hierarchylevel7:
+            columns:
+                - HIERARCHYLEVEL7
+        idx_hierarchylevel8:
+            columns:
+                - HIERARCHYLEVEL8
+        idx_hierarchylevel9:
+            columns:
+                - HIERARCHYLEVEL9
+        idx_jobtitlecyr:
+            columns:
+                - JOBTITLECYR
+        idx_city:
+            columns:
+                - CITY
+        idx_mailnickname:
+            columns:
+                - MAILNICKNAME
+        idx_manager:
+            columns:
+                - MANAGER
+        idx_mobilephone:
+            columns:
+                - MOBILEPHONE
+        idx_officelocation:
+            columns:
+                - OFFICELOCATION
+        idx_postalcode:
+            columns:
+                - POSTALCODE
+        idx_shopnumber:
+            columns:
+                - SHOPNUMBER
+        idx_address:
+            columns:
+                - ADDRESS
+        idx_officephone:
+            columns:
+                - OFFICEPHONE
+        idx_jobtitle:
+            columns:
+                - JOBTITLE
+        idx_jobcode:
+            columns:
+                - JOBCODE
+        idx_hierarchylevel0bg:
+            columns:
+                - HIERARCHYLEVEL0BG
+        idx_hierarchylevel1bg:
+            columns:
+                - HIERARCHYLEVEL1BG
+        idx_hierarchylevel2bg:
+            columns:
+                - HIERARCHYLEVEL2BG
+        idx_hierarchylevel3bg:
+            columns:
+                - HIERARCHYLEVEL3BG
+        idx_hierarchylevel4bg:
+            columns:
+                - HIERARCHYLEVEL4BG
+        idx_hierarchylevel5bg:
+            columns:
+                - HIERARCHYLEVEL5BG
+        idx_hierarchylevel6bg:
+            columns:
+                - HIERARCHYLEVEL6BG
+        idx_hierarchylevel7bg:
+            columns:
+                - HIERARCHYLEVEL7BG
+        idx_hierarchylevel8bg:
+            columns:
+                - HIERARCHYLEVEL8BG
+        idx_hierarchylevel9bg:
+            columns:
+                - HIERARCHYLEVEL9BG
+        idx_prassid:
+            columns:
+                - PRASSID
+        idx_prperid:
+            columns:
+                - PRPERID
+        idx_stjobid:
+            columns:
+                - STJOBID
+        idx_stposid:
+            columns:
+                - STPOSID
+        idx_username:
+            columns:
+                - USERNAME
+        idx_datadescriptor:
+            columns:
+                - DATADESCRIPTOR
+        idx_prassstaid:
+            columns:
+                - PRASSSTAID
+        idx_adstatus:
+            columns:
+                - ADSTATUS
+        idx_employeeenddate:
+            columns:
+                - EMPLOYEEENDDATE
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: ID
+            generator:
+                strategy: SEQUENCE
+    fields:
+        address:
+            type: string
+            nullable: true
+            length: 500
+            fixed: false
+            comment: ''
+            column: ADDRESS
+        adstatus:
+            type: string
+            nullable: true
+            length: 40
+            fixed: false
+            comment: ''
+            column: ADSTATUS
+        city:
+            type: string
+            nullable: true
+            length: 500
+            fixed: false
+            comment: ''
+            column: CITY
+        company:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: COMPANY
+        country:
+            type: string
+            nullable: true
+            length: 8
+            fixed: true
+            comment: Държава
+            column: COUNTRY
+        countrycode:
+            type: string
+            nullable: true
+            length: 2
+            fixed: true
+            comment: ''
+            column: COUNTRYCODE
+        datadescriptor:
+            type: string
+            nullable: true
+            length: 40
+            fixed: false
+            comment: дата
+            column: DATADESCRIPTOR
+        department:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: DEPARTMENT
+        description:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: DESCRIPTION
+        domain:
+            type: string
+            nullable: true
+            length: 40
+            fixed: false
+            comment: ''
+            column: DOMAIN
+        employeeenddate:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: EMPLOYEEENDDATE
+        employeeid:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            comment: ЕЛН
+            column: EMPLOYEEID
+        employeestartdate:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: EMPLOYEESTARTDATE
+        employeetype:
+            type: string
+            nullable: true
+            length: 9
+            fixed: false
+            comment: ''
+            column: EMPLOYEETYPE
+        firstname:
+            type: string
+            nullable: true
+            length: 500
+            fixed: false
+            comment: Име
+            column: FIRSTNAME
+        firstnamecyr:
+            type: string
+            nullable: true
+            length: 500
+            fixed: false
+            comment: ''
+            column: FIRSTNAMECYR
+        hierarchylevel0:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HIERARCHYLEVEL0
+        hierarchylevel0bg:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HIERARCHYLEVEL0BG
+        hierarchylevel1:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HIERARCHYLEVEL1
+        hierarchylevel1bg:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HIERARCHYLEVEL1BG
+        hierarchylevel2:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HIERARCHYLEVEL2
+        hierarchylevel2bg:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HIERARCHYLEVEL2BG
+        hierarchylevel3:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HIERARCHYLEVEL3
+        hierarchylevel3bg:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HIERARCHYLEVEL3BG
+        hierarchylevel4:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HIERARCHYLEVEL4
+        hierarchylevel4bg:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HIERARCHYLEVEL4BG
+        hierarchylevel5:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HIERARCHYLEVEL5
+        hierarchylevel5bg:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HIERARCHYLEVEL5BG
+        hierarchylevel6:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HIERARCHYLEVEL6
+        hierarchylevel6bg:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HIERARCHYLEVEL6BG
+        hierarchylevel7:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HIERARCHYLEVEL7
+        hierarchylevel7bg:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HIERARCHYLEVEL7BG
+        hierarchylevel8:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HIERARCHYLEVEL8
+        hierarchylevel8bg:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HIERARCHYLEVEL8BG
+        hierarchylevel9:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HIERARCHYLEVEL9
+        hierarchylevel9bg:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HIERARCHYLEVEL9BG
+        hrstatus:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: HRSTATUS
+        jobcode:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            comment: ''
+            column: JOBCODE
+        jobtitle:
+            type: string
+            nullable: true
+            length: 500
+            fixed: false
+            comment: ''
+            column: JOBTITLE
+        jobtitlecyr:
+            type: string
+            nullable: true
+            length: 500
+            fixed: false
+            comment: ''
+            column: JOBTITLECYR
+        lastname:
+            type: string
+            nullable: true
+            length: 500
+            fixed: false
+            comment: Фамилия
+            column: LASTNAME
+        lastnamecyr:
+            type: string
+            nullable: true
+            length: 500
+            fixed: false
+            comment: ''
+            column: LASTNAMECYR
+        mailnickname:
+            type: string
+            nullable: true
+            length: 4000
+            fixed: false
+            comment: ''
+            column: MAILNICKNAME
+        manager:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            comment: ''
+            column: MANAGER
+        middlename:
+            type: string
+            nullable: true
+            length: 500
+            fixed: false
+            comment: Презиме
+            column: MIDDLENAME
+        middlenamecyr:
+            type: string
+            nullable: true
+            length: 500
+            fixed: false
+            comment: ''
+            column: MIDDLENAMECYR
+        mobilephone:
+            type: string
+            nullable: true
+            length: 200
+            fixed: false
+            comment: ''
+            column: MOBILEPHONE
+        officelocation:
+            type: string
+            nullable: true
+            length: 40
+            fixed: false
+            comment: ''
+            column: OFFICELOCATION
+        officephone:
+            type: string
+            nullable: true
+            length: 200
+            fixed: false
+            comment: ''
+            column: OFFICEPHONE
+        postalcode:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            comment: ''
+            column: POSTALCODE
+        prassid:
+            type: bigint
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: PRASSID
+        prassstaid:
+            type: bigint
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: PRASSSTAID
+        prperid:
+            type: bigint
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: PRPERID
+        shopnumber:
+            type: string
+            nullable: true
+            length: 4
+            fixed: false
+            comment: ''
+            column: SHOPNUMBER
+        stjobid:
+            type: bigint
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: STJOBID
+        stposid:
+            type: bigint
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: STPOSID
+        username:
+            type: string
+            nullable: true
+            length: 40
+            fixed: false
+            comment: ''
+            column: USERNAME
+    lifecycleCallbacks: {  }

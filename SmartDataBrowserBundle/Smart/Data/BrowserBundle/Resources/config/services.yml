@@ -1,0 +1,6 @@
+parameters:
+#    smart_data_browser.example.class: Smart\Data\BrowserBundle\Example
+services:
+#    smart_data_browser.example:
+#        class: %smart_data_browser.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

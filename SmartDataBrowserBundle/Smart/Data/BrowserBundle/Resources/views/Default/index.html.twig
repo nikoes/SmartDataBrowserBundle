@@ -1,0 +1,206 @@
+{% if noScripts is not defined %}
+    {% block  dataBrowser_stylesheets %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('bundles/smartdatabrowser/js/jqgrid/css/ui.jqgrid.css') }}" />
+    {% endblock %}
+{% endif %}
+
+{% block dataBrowser_body %}
+    {% if id is iterable %} 
+        {% for i in id %}
+            {% include 'SmartDataBrowserBundle:Default:dom.html.twig' with { 'id' : i } %}
+        {% endfor %}
+    {% else %}
+        {% include 'SmartDataBrowserBundle:Default:dom.html.twig' with { 'id' : id } %}
+    {% endif %}
+{% endblock %}
+
+{% block dataBrowser_javascripts %}
+    {% if noScripts is not defined %}
+        <script src="{{ asset('bundles/smartdatabrowser/js/jqgrid/js/jquery.jqGrid.min.js') }}" type="text/javascript"></script>
+        <script type="text/ecmascript" src="{{ asset('bundles/smartdatabrowser/js/jqgrid/js/i18n/grid.locale-en.js') }}"></script>
+    {% endif %}
+    <script>
+        var gridArr      = {},
+            ids          = JSON.parse('{{ id|json_encode|raw }}'),
+            ajaxRequests = 0, 
+            processIds   = {},
+            gridsOptions = {},
+            lastSelectedRow = {};
+    
+        $(document).ready(function(){
+            
+            getGridStructure();
+            
+            gridsOptions = JSON.parse('{{ gridsOptions|json_encode()|raw }}');
+            
+            function getGridStructure()
+            {
+                if(ids.constructor === Array)
+                {
+                    $.each(ids, function(){
+                        ajaxRequest("{{ path('smart_data_browser_get_grid_structure') }}", this);
+                    });
+                }else{
+                    ajaxRequest("{{ path('smart_data_browser_get_grid_structure') }}", ids);
+                }
+            }
+
+            function ajaxRequest(url, id)
+            {
+                ajaxRequests++;
+                startProcess(id);
+                $.ajax({
+                    type: 'POST',
+                    cache: false,
+                    data: { grid_id: id  },
+                    url: url,
+                    success: function( data ){
+                        var grid = {};
+                        grid.colNames = data.colNames;
+                        grid.colModel = data.colModel;
+                        gridArr[id] = grid;
+                        ajaxRequests--;
+                        return data;
+                    }
+                });
+            }  
+            
+            function buildJqgrid(id)
+            {
+                $("#"+id).jqGrid(getGridMethods(id));
+                
+                if(typeof gridsOptions[id].filters !== 'undefined')
+                {
+                    $("#"+id).jqGrid('filterToolbar',{ 
+                        autosearch: true, 
+                        searchOnEnter: false, 
+                        stringResult: false, 
+                        groupOp: "AND" 
+                    });
+                }
+                
+                if(typeof gridsOptions[id].pager !== 'undefined')
+                {
+                    $('#'+id).navGrid("#"+id+"Pager", {                
+                        search: false, // show search button on the toolbar
+                        add: false,
+                        edit: false,
+                        del: false,
+                        refresh: true
+                    });
+                }
+                
+                if(typeof gridsOptions[id].placeholder !== 'undefined') //set timecard place if it's set
+                {                    
+                    $('div.data-browser-'+id).appendTo('#'+gridsOptions[id].placeholder);
+                }                
+            }
+            
+            function startProcess(gridId)
+            {
+                if(typeof processIds[gridId] !== null)
+                {
+                    processIds[gridId] = setInterval(function(){  
+                        if(ajaxRequests === 0)
+                        {                           
+                            if(ids.constructor === Array)
+                            {
+                                $.each(ids, function(){
+                                    buildJqgrid(this);
+                                });
+                            }else{
+                                buildJqgrid(ids);
+                            }
+                        }
+                    }, 50);
+                }
+            }
+            
+            function stopProcess(gridId)
+            {
+                clearInterval(processIds[gridId]);
+            }
+            
+            function getGridMethods(id)
+            {
+                var gridMethods = { };
+                if(typeof gridsOptions[id].local === 'undefined')
+                {
+                    gridMethods.url = '{{ path("smart_data_browser_get_grid_data") }}';
+                    gridMethods.mtype = "POST";
+                    gridMethods.datatype = "json";
+                    gridMethods.multiSort = true;
+                    gridMethods.sortname = 'id';
+                    gridMethods.sortorder = 'desc';
+                    gridMethods.rowNum = 10;
+                    gridMethods.rowList = [5, 10, 20];
+                    gridMethods.viewrecords = true;
+                    gridMethods.page = 1;
+                    gridMethods.pager = '#'+ id +'Pager';
+                }else{
+                    gridMethods.datatype = 'local';  
+                }
+                
+                gridMethods.colNames = gridArr[id].colNames;
+                gridMethods.colModel = gridArr[id].colModel;
+                gridMethods.height = 250;
+                if(typeof gridsOptions[id].multiselect !== 'undefined')
+                {
+                    gridMethods.multiselect = true;
+                }
+                if(typeof gridsOptions[id].width !== 'undefined')
+                {
+                    gridMethods.shrinkToFit = false;
+                    gridMethods.width = gridsOptions[id].width;
+                }else{
+                    gridMethods.autowidth = true;
+                }
+                if(typeof gridsOptions[id].footer !== 'undefined')
+                {
+                    gridMethods.footerrow = true;
+                    gridMethods.userDataOnFooter = true;  
+                }
+                gridMethods.ajaxRowOptions = { async: true };
+                gridMethods.serializeGridData = function(postData) {
+                    ajaxRequests++;
+                    var newPostData = $.extend(postData, {
+                      grid_id: id
+                    });
+                    return $.param(newPostData);
+                };
+                gridMethods.onSelectRow = function(rowid){ lastSelectedRow[id] = rowid; };
+                gridMethods.loadComplete = function(){ stopProcess(id); };                                              
+                return gridMethods;             
+            }
+        });     
+        
+        function dataBrowserGetGridData(gridId, url, data, progressBar, callback)
+        {
+            $('#'+gridId).jqGrid('clearGridData');
+            if(progressBar !== null){ $(progressBar).show(); }
+            $.ajax({
+                cache: false,
+                type: 'POST',
+                data: data,
+                url: url,
+                success: function(data){
+                    dataBrowserLoadDataToGrid(gridId, data, progressBar);
+                    if(typeof callback !== 'undefined')
+                    {
+                        callback();
+                    }
+                }
+            });
+        }
+
+        function dataBrowserLoadDataToGrid(gridId, data, progressBar)
+        {
+            for(var i in data)
+            {
+                $("#"+gridId).jqGrid('addRowData', data[i].id, data[i]);
+            }
+            if(progressBar !== null){ $(progressBar).hide(); }
+            $("#"+gridId+" tr.jqgrow:odd").css("background", "white");
+        }         
+    </script>
+{% endblock %}
