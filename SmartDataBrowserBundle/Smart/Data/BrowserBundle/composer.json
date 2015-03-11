@@ -1,0 +1,23 @@
+{
+    "name" : "Smart/Data/BrowserBundle",
+    "description" : "jqGrid symfony2 bundle",
+    "type" : "symfony-bundle",
+    "authors" : [{
+        "name" : "SmartDataBrowserBundle",
+        "email" : "niksi_2s@abv.bg"
+    }],
+    "keywords" : [
+        "jqGrid symfony2 bundle"
+    ],
+    "license" : [
+        "MIT"
+    ],
+    "require" : {
+    },
+    "autoload" : {
+        "psr-0" : {
+            "psr-0": { "Data\\BrowserBundle": "" }
+        }
+    },
+    "target-dir" : "Data/BrowserBundle"
+}
